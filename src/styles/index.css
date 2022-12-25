@@ -1,0 +1,354 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
+
+:root {
+  --sidebar-color: rgb(28, 28, 28);
+  --button-hover-color: rgb(47, 47, 47);
+  --button-border: 0.8px solid rgb(78, 78, 78);
+  --text-color: rgb(198, 198, 198);
+  --delay: all .3s ease;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  position: relative;
+  font-family: Montserrat, sans-serif;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  margin-block-start: 0; 
+  margin-block-end: 0;
+}
+
+button {
+  border: none; 
+  background-color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 3vmin;
+}
+
+html {
+  background: #151515;
+  color: #fff;
+  overflow: hidden;
+}
+
+.App, .app__main-loading {
+  height: 100vh; 
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+}
+
+.app__main-loading { flex-direction: column; }
+
+.loading__title {
+  font-size: 16px; 
+  margin-top: 45px; 
+}
+
+.App {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.app__main-title {
+  padding: 10px 12px; 
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 2%; 
+  color: black;
+  font-weight: 600;
+  font-size: 15px;
+  background-color: white;
+  box-shadow: 9px 10px 1px gray;
+  z-index: 10; 
+}
+
+.app__main-button {
+  width: 200px;
+  height: 55px; 
+  position: absolute; 
+  right: 0.5%; 
+  top: 1%; 
+  color: white; 
+  font-weight: 600;
+  font-size: 16px;
+  background-color: black;
+  border-radius: 10px;
+  z-index: 10;
+}
+
+.app__main-button:hover {
+  transition: var(--delay);
+  z-index: 1;
+}
+
+.app__main-sidebar {
+  position: absolute;
+  right: 0; 
+  top: 0; 
+  bottom: 0; 
+  width: 500px;
+  background-color: var(--sidebar-color);
+  z-index: 10;
+  transition: right 0.4s ease;
+  animation: sidebarVisible 0.4s ease;
+  overflow-y: scroll;
+  padding: 0 20px 0 20px;
+}
+
+.sidebar__close {
+  position: relative;
+  height: 180px; 
+}
+
+.sidebar__close-button {
+  position: absolute;
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%);
+}
+
+.sidebar__close-button ion-icon {
+  color: rgb(208, 208, 208); 
+  font-size: 22px;
+}
+
+.sidebar__question {
+  display: flex;
+  flex-direction: column;
+  height: fit-content; 
+  align-items: center;  
+}
+
+.sidebar__question p { 
+  font-size: 16px; 
+  line-height: 1.8;
+}
+
+.sidebar__question-answers {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 45px;
+}
+
+.question__answer.checkbox {
+  width: 135px;
+  height: 50px;
+  margin: 9px 0px;
+  background-color: transparent;
+  border: var(--button-border);
+  border-radius: 14px; 
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 15px;
+  transition: var(--delay);
+}
+
+.question__answer.checkbox.checked { background-color: var(--button-hover-color); }
+
+.sidebar__question-answers button:hover {
+  border: none; 
+  background-color: var(--button-hover-color);
+}
+
+.sidebar__next-button,
+.sidebar__prev-button,
+.sidebar__close-button {
+  width: 65px; 
+  height: 65px;
+  border: var(--button-border); 
+  background-color: transparent;
+  color: var(--text-color);
+  font-size: 18px;
+  border-radius: 1000px;
+  transition: var(--delay); 
+}
+
+.sidebar__next-button.md-left { margin-left: 14px; }
+
+.sidebar__nav-buttons {
+  display: flex;
+  justify-content: center; 
+  margin-top: 60px; 
+}
+
+.sidebar__next-button ion-icon, 
+.sidebar__prev-button ion-icon { font-size: 24px; }
+
+.sidebar__close-button:hover,
+.sidebar__next-button:hover, 
+.sidebar__prev-button:hover { background-color: var(--button-hover-color); }
+
+.question__answer.radio {
+  display: block;
+  position: relative;
+  width: 300px;
+  padding-left: 35px;
+  margin-bottom: 17px;
+  cursor: pointer;
+  font-size: 17px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.radio__checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  border: var(--button-border);
+}
+
+.radio__checkmark::after {
+  content: "";
+  position: absolute;
+  display: none;
+  top: 4px;
+  left: 4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: white;
+}
+
+.question__answer.radio:hover input ~ .radio__checkmark { background-color: var(--button-hover-color); }
+
+.question__answer.radio input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.question__answer.radio input:checked ~ .radio__checkmark::after { display: block; }
+
+.sidebar__result-title {
+  display: flex;
+  align-items: center;
+  margin: 24px 0;
+}
+
+.sidebar__result-title ion-icon {
+  font-size: 36px;
+  color: rgb(99, 237, 99);
+}
+
+.sidebar__result-title h6 { margin-left: 10px; }
+
+.result__movie { margin-bottom: 60px; }
+
+.result__movie-thumbnail { 
+  width: 100%;
+  height: 210px;
+  border-radius: 16px;
+}
+
+.result__movie-name {
+  margin: 8px 0;
+  font-size: 22px;
+}
+
+.result__movie-genre.play__button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.result__movie-genre {
+  color: rgb(212, 212, 212);
+  font-size: 18px;
+}
+
+.result__movie-play-button {
+  display: flex;
+  align-items: center;
+  color: var(--text-color);
+  padding: 8px 12px;
+  font-size: 15px;
+  border-radius: 8px; 
+  transition: var(--delay);
+}
+
+.result__movie-play-button:hover { background-color: var(--button-hover-color); }
+.result__movie-play-button span { margin-left: 8px; }
+
+.result__movie-times.nation, 
+.result__movie-showtimes {
+  margin-top: 7px; 
+}
+
+.result__movie-times.nation {
+  display: flex;
+  justify-content: space-between;
+}
+
+.result__movie-nation {
+  margin: 6px 0; 
+  color: white;
+}
+
+.result__movie-times.nation span, 
+.result__movie-showtimes span { font-size: 17px; }
+
+.result__movie-times.nation span {
+  color: rgb(105, 105, 105);
+  margin: 5px 0;
+}
+
+.result__movie-showtimes span {
+  padding: 5px 10px; 
+  border-radius: 8px;
+  background-color: var(--button-hover-color);
+  margin: 7px 0 7px 12px;
+}
+
+.result__movie-showtimes span:first-child { margin-left: 0; }
+
+.result__movie-detail-button {
+  width: 100%;
+  height: 60px; 
+  background-color: rgb(38, 38, 38);
+  color: white;
+  margin-top: 20px; 
+  font-size: 17px;
+  font-weight: 600;
+  border-radius: 13px;
+  transition: var(--delay);
+}
+
+.result__movie-detail-button:hover { background-color: var(--button-hover-color); }
+
+.result__rules { margin-bottom: 60px; }
+
+.rules__detail {
+  height: 300px; 
+  background-color: rgb(32, 32, 32);
+  overflow-y: scroll;
+  border-radius: 14px;
+  padding: 0 7px 0 7px;
+}
+
+.rules__detail p { font-size: 16px; }
+
+
+
+
+
+
